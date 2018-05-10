@@ -7,5 +7,4 @@ end
 mrs = prefix.('Mrs.')
 IO.puts mrs.('Smith')
 
-elixir = prefix.("Elixir")
-IO.puts elixir.("Rocks")
+IO.puts prefix.("Elixir").("Rocks")
