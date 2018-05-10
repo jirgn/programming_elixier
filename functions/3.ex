@@ -5,7 +5,7 @@ fizzbuz = fn
   _, _, a -> a
 end
 
-rembuzz = fn n -> 
+rembuzz = fn n ->
   fizzbuz.(rem(n, 3), rem(n, 5), n)
 end
 
