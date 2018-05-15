@@ -1,21 +1,18 @@
 defmodule Guess do
-  def guess(actual, range) do
-    low..high = range
-    guess = div(low + high, 2)
+  def guess(actual, a..b) do
+    guess = div(a + b, 2)
     IO.puts "Is it #{guess}"
-    process(guess, actual, range)
+    process(actual, a..b, guess)
   end
-  def process(current, actual, range) when current == actual do
+  def process(actual, _, current) when current == actual do
     IO.puts current
   end
-  def process(current, actual, range) when current > actual do
-    low.._ = range
-    high = current - 1
-    guess(actual, low..high)
+  def process(actual, a.._, current) when current > actual do
+    b = current - 1
+    guess(actual, a..b)
   end
-  def process(current, actual, range) when current < actual do
-    _..high = range
-    low = current + 1
-    guess(actual, low..high)
+  def process(actual, _..b, current) when current < actual do
+    a = current + 1
+    guess(actual, a..b)
   end
 end
