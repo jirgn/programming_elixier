@@ -8,11 +8,9 @@ defmodule Guess do
     IO.puts current
   end
   def process(actual, a.._, current) when current > actual do
-    b = current - 1
-    guess(actual, a..b)
+    guess(actual, a..current-1)
   end
   def process(actual, _..b, current) when current < actual do
-    a = current + 1
-    guess(actual, a..b)
+    guess(actual, current+1..b)
   end
 end
