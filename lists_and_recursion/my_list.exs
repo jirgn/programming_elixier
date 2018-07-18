@@ -4,9 +4,7 @@ defmodule MyList do
     func.(head) + mapsum(tail, func)
   end
 
-  def max(list) do
-   _max(list, 0) 
-  end
+  def max(list), do: _max(list, 0) 
   defp _max([], max), do: max
   defp _max([head | tail], max) when max > head do
     _max(tail, max)
@@ -24,18 +22,25 @@ defmodule MyList do
   end
   defp _encode(char, n), do: char + n
 
-  def span(from, to) when to > from do
-    [ from | span(from + 1, to) ]
-  end
-  def span(from, to) when to < from, do: span(to, from)
+  def span(from, to) when to > from,   do: [ from | span(from + 1, to) ]
+  def span(from, to) when to < from,   do: span(to, from)
   def span(from, to) when to === from, do: [ from ]
 
   def flatten(list), do: _flatten(list, [])
-  def _flatten([], acc), do: acc
-  def _flatten([head | tail], acc) when is_list(head) do
+  defp _flatten([], acc), do: acc
+  defp _flatten([head | tail], acc) when is_list(head) do
     _flatten(head, acc) ++ _flatten(tail, acc)
   end
-  def _flatten([head | tail], acc) do
+  defp _flatten([head | tail], acc) do
     [ head | _flatten(tail, acc) ]
+  end
+
+  def foldr([], value, _func), do: value
+  def foldr([head|tail], value, func) do
+    foldr(tail, func.(head, value), func)
+  end
+
+  def foldl(list, value, func) do
+    foldr(Enum.reverse(list), value, func)
   end
 end
