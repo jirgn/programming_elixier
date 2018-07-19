@@ -41,6 +41,20 @@ defmodule MyList do
   end
 
   def foldl(list, value, func) do
-    foldr(Enum.reverse(list), value, func)
+    foldr(reverse(list), value, func)
   end
+
+  def map([], fun), do: []
+  def map([head|tail], fun) do
+    [fun.(head)|map(tail, fun)]
+  end
+
+  def reverse([]), do: []
+  def reverse([head|tail]) do
+    reverse(tail) ++ [ head ]
+  end
+
+  # def replace_at(list, index, value) do
+  #   _replace_at(list)
+  # end
 end
