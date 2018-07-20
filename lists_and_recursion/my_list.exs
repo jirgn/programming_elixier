@@ -44,17 +44,28 @@ defmodule MyList do
     foldr(reverse(list), value, func)
   end
 
-  def map([], fun), do: []
+  def map([], _fun), do: []
   def map([head|tail], fun) do
     [fun.(head)|map(tail, fun)]
   end
 
-  def reverse([]), do: []
-  def reverse([head|tail]) do
-    reverse(tail) ++ [ head ]
+  def reverse(list), do: _reverse(list, [])
+  def _reverse([], acc), do: acc
+  def _reverse([head|tail], acc) do
+    _reverse(tail, [head|acc])
   end
 
+  def length(list), do: _length(list, 1)
+  defp _length([], _current), do: 0
+  defp _length([_], current), do: current
+  defp _length([_|tail], current), do: _length(tail, current + 1)
+
   # def replace_at(list, index, value) do
-  #   _replace_at(list)
+  #   _replace_at(list, index, value, 0)
   # end
+  # defp _replace_at([], _index, _value, _currentIndex), do: []
+  # defp _replace_at([head|tail], index, value, currentIndex) when index == currentIndex do
+    
+  # end
+
 end
