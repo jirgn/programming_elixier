@@ -50,8 +50,8 @@ defmodule MyList do
   end
 
   def reverse(list), do: _reverse(list, [])
-  def _reverse([], acc), do: acc
-  def _reverse([head|tail], acc) do
+  defp _reverse([], acc), do: acc
+  defp _reverse([head|tail], acc) do
     _reverse(tail, [head|acc])
   end
 
@@ -60,12 +60,15 @@ defmodule MyList do
   defp _length([_], current), do: current
   defp _length([_|tail], current), do: _length(tail, current + 1)
 
-  # def replace_at(list, index, value) do
-  #   _replace_at(list, index, value, 0)
-  # end
-  # defp _replace_at([], _index, _value, _currentIndex), do: []
-  # defp _replace_at([head|tail], index, value, currentIndex) when index == currentIndex do
-    
-  # end
+  def replace_at(list, index, value) do
+    _replace_at(list, index, value, 0, [])
+  end
+  defp _replace_at([], _index, _value, _currentIndex, acc), do: reverse(acc)
+  defp _replace_at([_|tail], index, value, currentIndex, acc) when index == currentIndex do
+    _replace_at(tail, index, value, currentIndex + 1, [value|acc])
+  end
+  defp _replace_at([head|tail], index, value, currentIndex, acc) do
+    _replace_at(tail, index, value, currentIndex + 1, [head|acc])
+  end
 
 end
