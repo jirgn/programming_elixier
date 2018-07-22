@@ -71,4 +71,34 @@ defmodule MyList do
     _replace_at(tail, index, value, currentIndex + 1, [head|acc])
   end
 
+  def each([], _fun), do: []
+  def each([head|tail], fun) do
+    fun.(head)
+    each(tail,fun)
+  end
+
+  def all?([], _fun), do: true
+  def all?([head|tail], fun) do
+    fun.(head) && all?(tail, fun)
+  end
+
+  def filter([], _fun), do: []
+  def filter([head|tail], fun) do
+    if fun.(head) do
+      [head|filter(tail, fun)]
+    else
+      filter(tail, fun)
+    end
+  end
+
+  def split(list, count), do: _split(list, count, [], 0)
+  def _split([], _, _, _), do: {[], []}
+  def _split(list, 0, _, _), do: {[], list}
+  def _split([head|tail], count, prev, currentIndex) when currentIndex <= count do
+    _split(tail, count, [head|prev], currentIndex + 1)
+  end
+  def _split(list, count, prev, currentIndex) when currentIndex == count + 1 do
+    {reverse(prev), list}
+  end
+
 end
