@@ -101,4 +101,9 @@ defmodule MyList do
     {reverse(prev), list}
   end
 
+  def primes(n) do
+    range = span(2, n)
+    range -- (for a <- range, b <- span(2, a), a * b <= n, do: a * b)
+  end
+
 end
